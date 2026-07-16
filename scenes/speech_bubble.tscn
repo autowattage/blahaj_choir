@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://bpb8xt608ho1p"]
+
+[ext_resource type="Texture2D" uid="uid://d2q1ae5xrxkyn" path="res://assets/9panel-speech.png" id="1_a8ruc"]
+[ext_resource type="Texture2D" uid="uid://b646pridhmjd0" path="res://assets/direct-speech.png" id="2_x4eeu"]
+[ext_resource type="Texture2D" uid="uid://dk1n5hvjem1fi" path="res://assets/music/bar.png" id="3_e1pub"]
+
+[node name="speech bubble" type="NinePatchRect" unique_id=666509390]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_a8ruc")
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="bottom part thing" type="TextureRect" parent="." unique_id=1593173103]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(-400, 95)
+texture = ExtResource("2_x4eeu")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=940802793]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=950420446]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=352848103]
+layout_mode = 2
+texture = ExtResource("3_e1pub")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=159004681]
+layout_mode = 2
+texture = ExtResource("3_e1pub")

@@ -1,34 +1,42 @@
-class_name blahaj extends AnimatedSprite2D
+extends AnimatedSprite2D
 
 @onready var mouth: AnimatedSprite2D = $mouth
-@onready var left_eye: AnimatedSprite2D = $"left eye"
-@onready var right_eye: AnimatedSprite2D = $"right eye"
+@onready var audioplayer: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var animplayer: AnimationPlayer = $AnimationPlayer
 
-var tilt = Vector3() # 6 axis tilt
-var squeeze_timer = 0 # how long blahaj is squeezed
+var tilt = Vector3(0,3,0) # XYZ tilt from accelerometer
+var squeezed = false
 
 func _ready() -> void:
-	left_eye.play("idle")
-	right_eye.play("idle")
-	mouth.set_frame(3)
+	animation = "middle"
+	mouth.animation = "middle"
+	mouth.visible = squeezed
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	detect_squeeze(delta)
 	# faux pas tilt detection
-	tilt += Vector3(Input.get_axis("left","right"), Input.get_axis("up","down"),0)
+	tilt += Vector3(Input.get_axis("left","right"),Input.get_axis("down","up"),0)
+	tilt.y = clamp(tilt.y,0,20)
+	tilt.x = clamp(tilt.x,-8,8)
+	# faux pas squeeze detection
+	squeezed = Input.is_action_pressed("squeeze")
+	mouth.visible = Input.is_action_pressed("squeeze")
+	#animplayer.play("jump") if Input.is_action_pressed("squeeze") else animplayer.stop()
 	
-func detect_squeeze(delta) -> void:
-	# blahaj is squeezed
-	if Input.is_action_pressed("squeeze"):
-		mouth.set_frame(0)
-		squeeze_timer += delta
-	elif Input.is_action_just_released("squeeze"):
-		mouth.play()
-		squeeze_timer = 0
 	
-	# vibrate on squeeze
-	i
-	left_eye.play("squeezed") if squeeze_timer>1 else left_eye.play("idle")
-	right_eye.play("squeezed") if squeeze_timer>1 else right_eye.play("idle")
-	
+	# set x-axis frame
+	flip_h = tilt.x<0
+	mouth.flip_h = tilt.x<0
+	if abs(tilt.x) < 2:
+		animation = "middle"
+		mouth.animation = "middle"
+	elif abs(tilt.x) < 6:
+		animation = "side"
+		mouth.animation = "side"
+	else:
+		animation = "sideside"
+		mouth.animation = "sideside"
+	# set y-axis frame
+	frame = tilt.y/4
+	mouth.frame = tilt.y/4	
