@@ -5,6 +5,7 @@ var sample_hz = 22000 #22050.0 # Keep the number of samples to mix low, GDScript
 var pulse_hz = 440.0
 var phase = 0.0
 var playback: AudioStreamPlayback = null # Actual playback stream, assigned in _ready().
+var master_bus = AudioServer.get_bus_index("Master")
 
 func _fill_buffer():
 	var increment = pulse_hz / sample_hz
@@ -18,6 +19,7 @@ func _fill_buffer():
 func _process(_delta):
 	_fill_buffer()
 	pulse_hz = 196+Globals.tilt.y*14
+	AudioServer.set_bus_mute(master_bus, not Globals.squeezed)
 
 func _ready():
 	# Setting mix rate is only possible before play().

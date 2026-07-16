@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://be8g7epghvcv3" path="res://scripts/main.gd" id="1_sugp2"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_1vm6m"]
+buffer_length = 0.03
 
 [node name="main" type="Control" unique_id=1221929039]
 layout_mode = 3
