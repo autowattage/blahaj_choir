@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b6qd24p5atrkq" path="res://scenes/blahaj.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://be8g7epghvcv3" path="res://scripts/main.gd" id="1_sugp2"]
 
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_1vm6m"]
+
 [node name="main" type="Control" unique_id=1221929039]
 layout_mode = 3
 anchors_preset = 15
@@ -39,3 +41,6 @@ layout_mode = 2
 
 [node name="blahaj" parent="." unique_id=72759850 instance=ExtResource("1_o5qli")]
 layout_mode = 1
+
+[node name="synth" type="AudioStreamPlayer" parent="." unique_id=918225460]
+stream = SubResource("AudioStreamGenerator_1vm6m")

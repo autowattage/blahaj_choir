@@ -217,8 +217,6 @@ animation = &"sideside"
 centered = false
 script = ExtResource("16_uot2j")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AnimatedSprite2D" unique_id=366966351]
-
 [node name="mouth" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=1325826378]
 sprite_frames = SubResource("SpriteFrames_etvgd")
 animation = &"sideside"

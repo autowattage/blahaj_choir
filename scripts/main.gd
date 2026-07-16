@@ -1,13 +1,29 @@
 extends Control
 
-var tilt = Vector3(0,3,0) # XYZ tilt from accelerometer
-var squeezed = false
+@onready var synth: AudioStreamPlayer = $synth
+var sample_hz = 22000 #22050.0 # Keep the number of samples to mix low, GDScript is not super fast.
+var pulse_hz = 440.0
+var phase = 0.0
+var playback: AudioStreamPlayback = null # Actual playback stream, assigned in _ready().
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _fill_buffer():
+	var increment = pulse_hz / sample_hz
 
+	var to_fill = playback.get_frames_available()
+	while to_fill > 0:
+		playback.push_frame(Vector2.ONE * sin(phase * TAU)) # Audio frames are stereo.
+		phase = fmod(phase + increment, 1.0)
+		to_fill -= 1
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _process(_delta):
+	_fill_buffer()
+	pulse_hz = 196+Globals.tilt.y*14
+
+func _ready():
+	# Setting mix rate is only possible before play().
+	synth.stream.mix_rate = sample_hz
+	synth.play()
+	playback = synth.get_stream_playback()
+	# `_fill_buffer` must be called *after* setting `playback`,
+	# as `fill_buffer` uses the `playback` member variable.
+	_fill_buffer()
