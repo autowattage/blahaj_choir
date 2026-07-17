@@ -10,7 +10,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	mouth.visible = Globals.squeezed
-	#animplayer.play("jump") if Input.is_action_pressed("squeeze") else animplayer.stop()
+	animplayer.play("jump") if Input.is_action_pressed("squeeze") else animplayer.stop()
 	
 	# set x-axis image
 	flip_h = Globals.tilt.x<0

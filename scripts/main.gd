@@ -2,13 +2,12 @@ extends Control
 
 @onready var synth: AudioStreamPlayer = $synth
 var sample_hz = 22000 #22050.0 # Keep the number of samples to mix low, GDScript is not super fast.
-var pulse_hz = 440.0
 var phase = 0.0
 var playback: AudioStreamPlayback = null # Actual playback stream, assigned in _ready().
 var master_bus = AudioServer.get_bus_index("Master")
 
 func _fill_buffer():
-	var increment = pulse_hz / sample_hz
+	var increment = Globals.hertz / sample_hz
 
 	var to_fill = playback.get_frames_available()
 	while to_fill > 0:
@@ -18,7 +17,7 @@ func _fill_buffer():
 
 func _process(_delta):
 	_fill_buffer()
-	pulse_hz = 196+Globals.tilt.y*14
+	Globals.hertz = 349.23+Globals.tilt.y*10.4768 
 	AudioServer.set_bus_mute(master_bus, not Globals.squeezed)
 
 func _ready():
