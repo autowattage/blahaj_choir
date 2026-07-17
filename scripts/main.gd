@@ -17,7 +17,7 @@ func _fill_buffer():
 
 func _process(_delta):
 	_fill_buffer()
-	Globals.hertz = 349.23+Globals.tilt.y*10.4768 
+	Globals.hertz = 698.46+Globals.tilt.x*26
 	AudioServer.set_bus_mute(master_bus, not Globals.squeezed)
 
 func _ready():
